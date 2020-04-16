@@ -187,6 +187,8 @@ A web socket listener handles communication from server back to the client.
 
 com.jdk11.httpclient.ws.WebsocketExample
 
+This sample has no error handling - so just gives a flavour :)
+
 
 ## Reactive Streams
 
@@ -198,4 +200,7 @@ Back pressure is thus eradicated by the subscriber indicating what it can handle
 The idea is that this will be implemented by libraries like spring, rsjava.
 
 
+## HTTP/2 Server Push
+
+This is here but he just describes it with no concrete example.
 
