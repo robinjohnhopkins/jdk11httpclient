@@ -1,3 +1,60 @@
+## JDK 10 Notes
+
+### System Class Data Sharing
+
+If you JVM instance 1 invoked with
+java -Xshare:dump
+
+it can dump into a shared archive resulting in a classes.ja binary file.
+
+To use this in a different JVM instance, map in the file.
+Then start up with
+
+java -Xshare:on ...
+
+This can have start up time savings of ~10-30%
+
+
+### Application Class Data Sharing
+
+Again two VMs.
+
+First vm run with options:
+
+-Xshare:dump
+-XX:+UseAppCDS
+-XX:SharedClassListFile=..
+-XX:SharedArchiveFile=myapp.jsa
+
+
+Second vm run with options:
+
+-Xshare:on
+-XX:+UseAppCDS
+-XX:SharedArchiveFile=myapp.jsa
+
+again start up time saving.
+
+To create the class list file
+
+-XX:DumpLoadedClassList=myapp.lst
+
+NB this does not always work!?
+in thi case check out https://github.com/simonis/cl4cds
+
+
+### Improved Container Awareness
+
+Java since jdk10 now knows if it is inside a docker container.
+It has new switches
+-XX:ActiveProcessorCount
+-XX:InitialRAMPercentage
+-XX:MaxRAMPercentage
+-XX:MinRAMPercentage
+
+It can also attach to a java process.
+Implemented for Linux and docker initially.
+
 ## HttpClient JDK 11
 
 ### LinkValidatorSync
